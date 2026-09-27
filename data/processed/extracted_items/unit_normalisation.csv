@@ -1,0 +1,6 @@
+unit,standard_unit,conversion_factor
+MM,M,0.001
+CM,M,0.01
+MTR,M,1
+IN,M,0.0254
+FT,M,0.3048

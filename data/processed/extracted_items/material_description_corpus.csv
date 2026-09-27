@@ -1,0 +1,13 @@
+organization,source_system,tender_reference,description,unit/category,source_URL,document_URL
+OIL INDIA LIMITED,SAP-MM,TENDER_OIL_001,BALL VALVE 2" CLASS 300,NO,http://oilindia.com/tender/001,http://oilindia.com/doc/valve001.pdf
+NTPC LIMITED,SAP-PM,TENDER_NTPC_001,2 IN BALL VALVE CL-300,NO,http://ntpc.co.in/tender/001,http://ntpc.co.in/doc/ballvalve001.pdf
+INDIAN OIL CORPORATION,SAP-ERP,TENDER_IOC_001,BALL VL 2 IN CL300,NUMBER,http://iocl.com/tender/001,http://iocl.com/doc/ballvl001.pdf
+OIL INDIA LIMITED,SAP-MM,TENDER_OIL_002,GATE VALVE 4" CLASS 150,NO,http://oilindia.com/tender/002,http://oilindia.com/doc/gate001.pdf
+NTPC LIMITED,SAP-PM,TENDER_NTPC_002,4" GATE VALVE CL-150,NO,http://ntpc.co.in/tender/002,http://ntpc.co.in/doc/gate002.pdf
+INDIAN OIL CORPORATION,SAP-ERP,TENDER_IOC_002,GATE VLV 4 IN CL150,NUMBER,http://iocl.com/tender/002,http://iocl.com/doc/gatevl001.pdf
+OIL INDIA LIMITED,SAP-MM,TENDER_OIL_003,CS PIPE 8 INCH SCH 40,MTR,http://oilindia.com/tender/003,http://oilindia.com/doc/pipe001.pdf
+NTPC LIMITED,SAP-PM,TENDER_NTPC_003,8" CARBON STEEL PIPE SCHEDULE 40,MTR,http://ntpc.co.in/tender/003,http://ntpc.co.in/doc/pipe002.pdf
+INDIAN OIL CORPORATION,SAP-ERP,TENDER_IOC_003,PIPE CS 8NB SCH40,MTR,http://iocl.com/tender/003,http://iocl.com/doc/pipevl001.pdf
+OIL INDIA LIMITED,SAP-MM,TENDER_OIL_004,FLANGE SS 304 2IN CL150,NO,http://oilindia.com/tender/004,http://oilindia.com/doc/flange001.pdf
+NTPC LIMITED,SAP-PM,TENDER_NTPC_004,2 INCH SS304 FLANGE CLASS 150,NO,http://ntpc.co.in/tender/004,http://ntpc.co.in/doc/flange002.pdf
+INDIAN OIL CORPORATION,SAP-ERP,TENDER_IOC_004,FLANGE 2NB SS304 CL150,NUMBER,http://iocl.com/tender/004,http://iocl.com/doc/flangevl001.pdf

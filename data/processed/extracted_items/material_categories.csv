@@ -1,0 +1,15 @@
+category,description,attributes
+VALVE,Valve,category|subtype|nominal_size|size_unit|pressure_class|pressure_unit|material_grade|material_type|end_connection|facing_type|standard|actuation
+PIPE,Pipe,category|nominal_size|size_unit|schedule|material_grade|material_type|standard|coating
+FLANGE,Flange,category|nominal_size|size_unit|pressure_class|pressure_unit|material_grade|material_type|end_connection|facing_type|standard
+CABLE,Cable,category|voltage|conductor_material|core_count|cross_section|insulation|sheath|standard|application
+BEARING,Bearing,category|bore|outer_diameter|width|bearing_type|seal_type|clearance|standard|lubrication
+GASKET,Gasket,category|inner_diameter|outer_diameter|thickness|material|standard|pressure_rating|temperature_rating
+BOLT,Bolt,category|diameter|length|thread_pitch|material_grade|strength_grade|standard|finish|head_type
+NUT,Nut,category|diameter|thread_pitch|material_grade|strength_grade|standard|finish|type
+WASHER,Washer,category|inner_diameter|outer_diameter|thickness|material|standard|finish|type
+ELBOW,Elbow,category|nominal_size|size_unit|angle|radius|schedule|material_grade|material_type|standard|end_connection
+TEE,Tee,category|nominal_size|size_unit|branch_size|schedule|material_grade|material_type|standard|end_connection
+REDUCER,Reducer,category|nominal_size|size_unit|reduction|schedule|material_grade|material_type|standard|end_connection
+CAP,Cap,category|nominal_size|size_unit|schedule|material_grade|material_type|standard|end_connection
+PLUG,Plug,category|nominal_size|size_unit|schedule|material_grade|material_type|standard|end_connection|type
