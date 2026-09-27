@@ -78,6 +78,18 @@ const Layout = ({ children, apiStatus }) => {
                 <span className="me-3">🧪</span>
                 <span>API Explorer</span>
               </Link>
+
+              <Link
+                to="/review"
+                className={`d-flex w-100 align-items-center py-2 text-decoration-none ${
+                  location.pathname === '/review' ? 'fw-medium text-primary' : 'text-muted'
+                }`}
+                disabled={!apiStatus.isConnected && apiStatus.isChecking === false}
+                title={!apiStatus.isConnected && apiStatus.isChecking === false ? 'API not connected' : undefined}
+              >
+                <span className="me-3">👁️‍🗨️</span>
+                <span>Human Review</span>
+              </Link>
             </nav>
 
             {/* API Status Indicator */}

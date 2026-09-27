@@ -10,6 +10,7 @@ import DuplicateDetection from './components/DuplicateDetection';
 import Clustering from './components/Clustering';
 import APIExplorer from './components/APIExplorer';
 import Documentation from './components/Documentation';
+import HumanReview from './components/HumanReview';
 import './styles/index.css';
 
 function App() {
@@ -101,6 +102,16 @@ function App() {
           element={
             apiStatus.isConnected
               ? <APIExplorer />
+              : <Navigate to="/" replace state={{ apiError: apiStatus.error }} />
+          }
+        />
+
+        {/* Human Review - requires API connection */}
+        <Route
+          path="/review"
+          element={
+            apiStatus.isConnected
+              ? <HumanReview />
               : <Navigate to="/" replace state={{ apiError: apiStatus.error }} />
           }
         />

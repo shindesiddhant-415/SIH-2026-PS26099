@@ -193,6 +193,20 @@ class MaterialNormalizer:
             self.unit_normalization = {}
             self.material_categories = {}
 
+    def _normalize_material(self, material_str: str) -> str:
+        """Normalize a material string using abbreviation and grade maps."""
+        if not material_str:
+            return material_str
+        material_str_upper = material_str.upper()
+        # First, try to expand known abbreviation
+        if material_str_upper in self.abbreviations:
+            return self.abbreviations[material_str_upper]['full_form']
+        # Then, try to get description from grade map
+        if material_str_upper in self.grades:
+            return self.grades[material_str_upper]
+        # If not found, return the original string (already uppercase)
+        return material_str
+
     def _build_category_patterns(self):
         """Build regex patterns for category detection."""
         # Define keywords that strongly indicate each category
@@ -362,10 +376,10 @@ class MaterialNormalizer:
             match = re.search(pattern, description)
             if match:
                 if len(match.groups()) == 2:
-                    attrs['material_type'] = match.group(1)
+                    attrs['material_type'] = self._normalize_material(match.group(1))
                     attrs['material_grade'] = match.group(2)
                 else:
-                    attrs['material_type'] = match.group(1)
+                    attrs['material_type'] = self._normalize_material(match.group(1))
                 break
 
         # Extract end connection/type
@@ -444,7 +458,7 @@ class MaterialNormalizer:
         for pattern in body_patterns:
             match = re.search(pattern, description)
             if match:
-                attrs['body_material'] = match.group(1)
+                attrs['body_material'] = self._normalize_material(match.group(1))
                 break
 
         # Extract coating/lining (for pipes)
@@ -471,7 +485,19 @@ class MaterialNormalizer:
         for pattern in voltage_patterns:
             match = re.search(pattern, description)
             if match:
-                attrs['voltage'] = f"{match.group(1)} {match.group(2)}"
+                value = float(match.group(1))
+                unit = match.group(2).upper()
+                if unit.startswith('K'):  # KV or KILOVOLTS
+                    value *= 1000
+                elif unit.startswith('M'):  # MV or MEGAVOLTS
+                    value *= 1_000_000
+                # else: unit starts with 'V' -> volts, no change
+                # Store as integer if whole number, otherwise keep reasonable precision
+                if value.is_integer():
+                    attrs['voltage'] = str(int(value))
+                else:
+                    # Limit to 3 decimal places
+                    attrs['voltage'] = f"{value:.3f}".rstrip('0').rstrip('.')
                 break
 
         # Extract conductor material (for cables)
@@ -485,7 +511,7 @@ class MaterialNormalizer:
         for pattern in conductor_patterns:
             match = re.search(pattern, description)
             if match:
-                attrs['conductor_material'] = match.group(1)
+                attrs['conductor_material'] = self._normalize_material(match.group(1))
                 break
 
         # Extract core count (for cables)
@@ -502,7 +528,7 @@ class MaterialNormalizer:
 
         # Extract cross-section (for cables)
         cross_section_patterns = [
-            r'(\d+(?:\.\d+)?)\s*(MM\^2|SQ\.?MM)',   # 4 mm²
+            r'(\d+(?:\.\d+)?)\s*(MM\^2|SQ\s*MM\.?)',   # 4 mm² or 4 SQ MM
             r'(\d+(?:\.\d+)?)\s*(AWG\s+\d+)',       # 12 AWG
         ]
 

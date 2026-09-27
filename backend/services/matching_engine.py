@@ -190,18 +190,30 @@ class MatchingEngine:
             elif val1 is None or val2 is None:
                 matches += 0.5  # Partial credit for missing info
                 matched_attributes.append(field)  # Still count as matched for missing info
-            # Both have values - exact match required
-            elif val1 == val2:
-                matches += 1
-                matched_attributes.append(field)
-            # Values differ - conflict
+            # Both have values - exact match required (case-insensitive for strings)
+            elif isinstance(val1, str) and isinstance(val2, str):
+                if val1.lower() == val2.lower():
+                    matches += 1
+                    matched_attributes.append(field)
+                else:
+                    matches += 0
+                    conflicting_attributes.append({
+                        'attribute': field,
+                        'material_a': str(val1) if val1 is not None else '',
+                        'material_b': str(val2) if val2 is not None else ''
+                    })
             else:
-                matches += 0
-                conflicting_attributes.append({
-                    'attribute': field,
-                    'material_a': str(val1) if val1 is not None else '',
-                    'material_b': str(val2) if val2 is not None else ''
-                })
+                # Non-string comparison
+                if val1 == val2:
+                    matches += 1
+                    matched_attributes.append(field)
+                else:
+                    matches += 0
+                    conflicting_attributes.append({
+                        'attribute': field,
+                        'material_a': str(val1) if val1 is not None else '',
+                        'material_b': str(val2) if val2 is not None else ''
+                    })
 
         base_score = matches / total_fields if total_fields > 0 else 0.0
         return base_score, matched_attributes, conflicting_attributes
@@ -242,16 +254,28 @@ class MatchingEngine:
             val1 = dict1.get(attr)
             val2 = dict2.get(attr)
 
-            # Critical attribute conflict: both present but different
-            if val1 is not None and val2 is not None and val1 != val2:
-                all_critical_satisfied = False
-                violations.append({
-                    'constraint_type': 'critical_attribute_mismatch',
-                    'attribute': attr,
-                    'material_a': str(val1),
-                    'material_b': str(val2),
-                    'description': f'Critical attribute mismatch: {attr} ({val1} vs {val2})'
-                })
+            # Critical attribute conflict: both present but different (case-insensitive for strings)
+            if val1 is not None and val2 is not None:
+                if isinstance(val1, str) and isinstance(val2, str):
+                    if val1.lower() != val2.lower():
+                        all_critical_satisfied = False
+                        violations.append({
+                            'constraint_type': 'critical_attribute_mismatch',
+                            'attribute': attr,
+                            'material_a': str(val1),
+                            'material_b': str(val2),
+                            'description': f'Critical attribute mismatch: {attr} ({val1} vs {val2})'
+                        })
+                else:
+                    if val1 != val2:
+                        all_critical_satisfied = False
+                        violations.append({
+                            'constraint_type': 'critical_attribute_mismatch',
+                            'attribute': attr,
+                            'material_a': str(val1),
+                            'material_b': str(val2),
+                            'description': f'Critical attribute mismatch: {attr} ({val1} vs {val2})'
+                        })
             # One is missing, other present - this is acceptable (missing info vs negative info)
             elif val1 is None and val2 is not None:
                 # Material A missing info, Material B has it - acceptable

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../services/api';
 import './styles/index.css';
 
 const Matching = () => {
@@ -22,22 +23,10 @@ const Matching = () => {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:8000/match', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          description_1: description1.trim(),
-          description_2: description2.trim()
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const data = await response.json();
+      const data = await apiService.matchMaterials(
+        description1.trim(),
+        description2.trim()
+      );
       setResult(data);
     } catch (err) {
       setError(err.message);
