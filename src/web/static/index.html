@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatSync AI — National CPSE Material Intelligence &amp; Harmonization Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Top Contest Announcement Ribbon -->
+  <div class="top-announcement-ribbon">
+    <span><span class="ribbon-tag">SIH 2026</span> Smart India Hackathon • Problem Statement <strong>SIH26099</strong> • Team <strong>Spartans_1</strong> (#137862) • <a href="https://github.com/shindesiddhant-415/SIH-2026-PSS26263-" target="_blank" rel="noopener noreferrer" class="ribbon-link">github.com/shindesiddhant-415/SIH-2026-PSS26263- ↗</a></span>
+  </div>
+
+  <!-- Unified Enterprise Navbar -->
+  <header class="main-navbar">
+    <div class="nav-brand-container" onclick="switchTab('dashboard-view')" style="cursor: pointer;">
+      <div class="brand-logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <div class="brand-identity">
+        <span class="brand-name">MatSync<span class="brand-ai">AI</span></span>
+        <span class="brand-subtitle">CPSE Material Harmonizer</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-links">
+      <button class="nav-tab active" data-tab="dashboard-view" id="tab-dashboard">
+        Dashboard
+      </button>
+      <button class="nav-tab" data-tab="pipeline-view" id="tab-pipeline">
+        Core AI Pipeline
+      </button>
+      <button class="nav-tab" data-tab="workbench-view" id="tab-workbench">
+        Resolution Workbench
+        <span class="badge-count" id="pending-count-badge">0</span>
+      </button>
+      <button class="nav-tab" data-tab="catalog-view" id="tab-catalog">
+        Cross-CPSE Catalog
+      </button>
+      <button class="nav-tab" data-tab="governance-view" id="tab-governance">
+        Governance &amp; SAP
+      </button>
+    </nav>
+
+    <!-- Right Controls: Sync, Upload, Actions, Role, Theme -->
+    <div class="nav-actions-container">
+      <div class="telemetry-pill" title="Real-time multi-CPSE sync active">
+        <span class="live-dot pulse"></span>
+        <span class="telemetry-text">Live Sync</span>
+      </div>
+
+      <button class="btn btn-primary btn-sm" onclick="openUploadModal()" title="Upload CPSE Catalog CSV">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Catalog
+      </button>
+
+      <!-- Actions Dropdown -->
+      <div class="dropdown-wrap">
+        <button class="btn btn-secondary btn-sm" onclick="toggleActionsMenu(event)">
+          Actions ▾
+        </button>
+        <div id="actions-dropdown" class="dropdown-menu">
+          <button class="dropdown-item" onclick="openManualMapModal()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Manual Mapping
+          </button>
+          <a href="/api/mappings/export" class="dropdown-item" id="export-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Matrix (CSV)
+          </a>
+        </div>
+      </div>
+
+      <div class="role-selector-wrap">
+        <span class="role-icon">👤</span>
+        <select id="user-role-select" class="role-select" onchange="handleRoleChange()" title="Switch User Role">
+          <option value="APPROVER">Approver</option>
+          <option value="TECHNICAL_REVIEWER">Reviewer</option>
+          <option value="DATA_STEWARD">Data Steward</option>
+          <option value="ADMIN" selected>Admin</option>
+        </select>
+      </div>
+
+      <a href="https://github.com/shindesiddhant-415/SIH-2026-PSS26263-" target="_blank" rel="noopener noreferrer" class="nav-github-btn" title="View Source Code on GitHub">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+
+      <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Light / Dark Mode" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- Main Container -->
+  <main class="command-canvas">
+    
+    <!-- 1. Executive Dashboard View -->
+    <section id="dashboard-view" class="view-panel active">
+      <div class="panel-header">
+        <div>
+          <h2>Executive Overview</h2>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="switchTab('workbench-view')">
+          Review Candidate Clusters &rarr;
+        </button>
+      </div>
+
+      <!-- Stat KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-meta">
+            <span class="kpi-label">TOTAL MASTERS</span>
+            <span class="kpi-pill cyan">5 CPSEs</span>
+          </div>
+          <div class="kpi-value" id="kpi-total-masters">16</div>
+          <div class="kpi-footnote">Oil & Gas, Power, Steel, Heavy Engg</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-meta">
+            <span class="kpi-label">DUPLICATE CLUSTERS</span>
+            <span class="kpi-pill amber">AI MATCHED</span>
+          </div>
+          <div class="kpi-value" id="kpi-duplicate-clusters">5</div>
+          <div class="kpi-footnote"><span class="highlight-amber" id="kpi-pending-clusters">4</span> awaiting sign-off</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-meta">
+            <span class="kpi-label">HARMONIZATION RATE</span>
+            <span class="kpi-pill emerald">CNMC ADOPTION</span>
+          </div>
+          <div class="kpi-value" id="kpi-harmonization-rate">20.0%</div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="kpi-progress-bar" style="width: 20%;"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card highlight-glow">
+          <div class="kpi-meta">
+            <span class="kpi-label">PROJECTED SOURCING SAVINGS</span>
+            <span class="kpi-pill gold">STRATEGIC</span>
+          </div>
+          <div class="kpi-value gold-text" id="kpi-potential-savings">₹4,850</div>
+          <div class="kpi-footnote">Demand aggregation & holding reduction</div>
+        </div>
+      </div>
+
+      <!-- Sector Breakdown & Recent Harmonizations -->
+      <div class="dashboard-columns">
+        <div class="content-card">
+          <h3>Participating CPSE Distribution</h3>
+          <div class="distribution-bars" id="distribution-container">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>Recent Harmonization Activity</h3>
+          <div class="audit-log" id="dashboard-recent-activity">
+            <div class="log-entry">
+              <div class="log-time">ACTIVE</div>
+              <div class="log-details">
+                <strong>AI Deduplication Engine</strong> ready. 5 duplicate clusters detected across 4 sectors.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1B. Core AI Transformation Pipeline (Requirement 11) -->
+    <section id="pipeline-view" class="view-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Material Harmonization Pipeline</h2>
+        </div>
+        <div class="filter-group">
+          <button class="filter-chip active" onclick="filterPipeline('ALL')">All Materials</button>
+          <button class="filter-chip" onclick="filterPipeline('HARMONIZED')">Harmonized</button>
+          <button class="filter-chip" onclick="filterPipeline('CANDIDATE_MATCH')">Pending Match</button>
+        </div>
+      </div>
+
+      <!-- Pipeline Search Bar -->
+      <div class="pipeline-controls">
+        <div class="search-command-bar" style="margin-bottom: 0; flex: 1;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="pipeline-search-input" placeholder="Search by code, standard description, or technical specifications..." oninput="handlePipelineSearch()">
+        </div>
+      </div>
+
+      <!-- 8-Tuple Cards Stream -->
+      <div id="pipeline-tuples-container" class="tuples-stream">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- 2. AI Resolution Workbench View -->
+    <section id="workbench-view" class="view-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Resolution Workbench</h2>
+        </div>
+        <div class="filter-group">
+          <button class="filter-chip active" onclick="filterClusters('ALL')">All Clusters</button>
+          <button class="filter-chip" onclick="filterClusters('PENDING_REVIEW')">Pending Review</button>
+          <button class="filter-chip" onclick="filterClusters('APPROVED')">Approved</button>
+        </div>
+      </div>
+
+      <!-- Cluster Cards List -->
+      <div id="clusters-container" class="clusters-list">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- 3. Cross-CPSE Catalog Explorer View -->
+    <section id="catalog-view" class="view-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Cross-CPSE Catalog</h2>
+        </div>
+      </div>
+
+      <!-- Search Command Bar -->
+      <div class="search-command-bar">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="catalog-search-input" placeholder="Search by description, standard (e.g. B16.34, IS 1363), item type, or code..." oninput="handleCatalogSearch()">
+        <select id="cpse-filter-select" onchange="handleCatalogSearch()">
+          <option value="">All CPSEs</option>
+          <option value="IOCL">IOCL (Oil & Gas)</option>
+          <option value="NTPC">NTPC (Power)</option>
+          <option value="SAIL">SAIL (Steel)</option>
+          <option value="BHEL">BHEL (Heavy Engg)</option>
+        </select>
+      </div>
+
+      <!-- Results Table -->
+      <div class="table-container">
+        <table class="codex-table">
+          <thead>
+            <tr>
+              <th>CPSE</th>
+              <th>LOCAL MATERIAL CODE</th>
+              <th>COMMON NATIONAL CODE (CNMC)</th>
+              <th>STANDARDIZED DESCRIPTION</th>
+              <th>ATTRIBUTES</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody id="catalog-table-body">
+            <!-- Injected via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Governance & SAP Connector View -->
+    <section id="governance-view" class="view-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Governance &amp; SAP Telemetry</h2>
+        </div>
+      </div>
+
+      <div class="governance-grid">
+        <!-- SAP Connector Status Card -->
+        <div class="content-card">
+          <div class="card-top-badge">
+            <span class="badge-dot emerald"></span>
+            <span>ERP INTEGRATION GATEWAYS</span>
+          </div>
+          <h3>CPSE ERP System Connectors</h3>
+          <div class="connector-list">
+            <div class="connector-row">
+              <div class="connector-info">
+                <strong>IOCL Mathura / Panipat SAP S/4HANA</strong>
+                <span>Protocol: RFC / BAPI (BAPI_MATERIAL_GET_DETAIL)</span>
+              </div>
+              <span class="status-badge active">CONNECTED</span>
+            </div>
+            <div class="connector-row">
+              <div class="connector-info">
+                <strong>NTPC Ramagundam SAP ECC 6.0</strong>
+                <span>Protocol: OData v4 REST Gateway</span>
+              </div>
+              <span class="status-badge active">CONNECTED</span>
+            </div>
+            <div class="connector-row">
+              <div class="connector-info">
+                <strong>SAIL Bhilai / Rourkela SAP ERP</strong>
+                <span>Protocol: SAP NetWeaver RFC Connector</span>
+              </div>
+              <span class="status-badge active">CONNECTED</span>
+            </div>
+            <div class="connector-row">
+              <div class="connector-info">
+                <strong>BHEL Hyderabad Custom Oracle ERP</strong>
+                <span>Protocol: REST API Webhooks</span>
+              </div>
+              <span class="status-badge active">CONNECTED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audit Trail Card -->
+        <div class="content-card">
+          <div class="card-top-badge">
+            <span class="badge-dot amber"></span>
+            <span>TAMPER-EVIDENT AUDIT TRAIL</span>
+          </div>
+          <h3>Material Harmonization Ledger</h3>
+          <p class="card-caption">All AI recommendations, manual overrides, and CNMC code approvals are cryptographically logged.</p>
+          <div class="audit-log" id="audit-log-container">
+            <div class="log-entry">
+              <div class="log-time">JUST NOW</div>
+              <div class="log-details">
+                <strong>DIRECTOR_PROCUREMENT_COMMITTEE</strong> approved cluster <code>CLUST-VALVE-0001</code>.
+                <div class="log-sub">Issued Common National Code: <span class="cnmc-pill">CNMC-4014-VLV-2BC3</span></div>
+                <div class="log-sub text-muted">Bound IOC-MTR-402911, NTPC-MECH-88210, SAIL-BSP-VAL-00431</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Approval & Justification Modal (Requirement 5 & 7) -->
+  <div id="approval-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Ministerial / Committee Approval & Justification</h3>
+        <button class="modal-close-btn" onclick="closeApprovalModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-sub">Authorizing the issuance of a Common National Material Code (CNMC) binds all participating CPSE internal material codes.</p>
+        
+        <div class="form-group">
+          <label class="form-label">Cluster ID</label>
+          <input type="text" id="modal-cluster-id" class="form-input" readonly>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Canonical Description</label>
+          <input type="text" id="modal-canonical-desc" class="form-input" readonly>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Sign-off Authority / Approver Name</label>
+          <input type="text" id="modal-approver-name" class="form-input" value="DIRECTOR_GENERAL_CPSE_COMMITTEE">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Sign-off Role</label>
+          <select id="modal-approver-role" class="form-input">
+            <option value="APPROVER">Approver (Procurement / Executive)</option>
+            <option value="TECHNICAL_REVIEWER">Technical Reviewer (Domain Lead)</option>
+            <option value="DATA_STEWARD">Data Steward (Data Quality)</option>
+            <option value="ADMIN">System Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mandatory Justification / Technical Rationale</label>
+          <textarea id="modal-justification" class="form-textarea" placeholder="Provide technical justification confirming specification equivalency across CPSE plants..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeApprovalModal()">Cancel</button>
+        <button class="btn btn-success" onclick="submitModalApproval()">Confirm Sign-off &amp; Issue CNMC</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual Mapping Modal (Requirement 5) -->
+  <div id="manual-map-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Manual Material Code Mapping</h3>
+        <button class="modal-close-btn" onclick="closeManualMapModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-sub">Manually bind an unmapped or legacy CPSE material code to a target Common National Material Code.</p>
+        
+        <div class="form-group">
+          <label class="form-label">Source CPSE</label>
+          <select id="manual-cpse-select" class="form-input">
+            <option value="IOCL">IOCL</option>
+            <option value="NTPC">NTPC</option>
+            <option value="SAIL">SAIL</option>
+            <option value="BHEL">BHEL</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Local Material Code</label>
+          <input type="text" id="manual-local-code" class="form-input" placeholder="e.g. SAIL-CIV-0091 or IOC-VLV-9901">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Common National Code (CNMC)</label>
+          <input type="text" id="manual-target-cnmc" class="form-input" placeholder="e.g. CNMC-4014-VLV-2BC3 or CNMC-3011-CMT-0091">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Justification Comments</label>
+          <textarea id="manual-justification" class="form-textarea" placeholder="Explain basis of manual harmonization..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeManualMapModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitManualMap()">Execute Manual Mapping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Catalog Modal -->
+  <div id="upload-catalog-modal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Ingest CPSE Material Catalog (CSV)</h3>
+        <button class="modal-close-btn" onclick="closeUploadModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-sub">Upload CSV dataset from any CPSE (IOCL, NTPC, SAIL, BHEL, GAIL, ONGC). The platform will automatically normalize abbreviations, extract technical attributes, and run hybrid deduplication in real time.</p>
+        
+        <div class="drop-zone" id="csv-drop-zone" onclick="document.getElementById('csv-file-input').click()">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p style="margin: 8px 0 4px; font-weight: 600;">Click to select file or drag &amp; drop CSV catalog</p>
+          <span class="file-spec-hint">Expected columns: CPSE_ID, Material_Code, Description, UoM, Unit_Price_INR</span>
+          <input type="file" id="csv-file-input" accept=".csv" style="display:none;" onchange="handleFileSelect(event)">
+          <div id="selected-file-name" class="selected-file-badge" style="display:none;"></div>
+        </div>
+
+        <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <a href="/api/sample-csv" class="btn btn-secondary btn-sm" download>
+            ⬇️ Download Sample Test CSV
+          </a>
+          <span id="upload-status-msg" style="font-size: 13px; font-weight: 500;"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeUploadModal()">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-upload" onclick="submitCatalogUpload()">Ingest &amp; Harmonize</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

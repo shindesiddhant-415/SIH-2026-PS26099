@@ -1,0 +1,3 @@
+# Optional dependencies for Sentence-BERT neural embeddings (ENABLE_NEURAL_EMBEDDINGS=1)
+-r requirements.txt
+sentence-transformers>=2.2.0

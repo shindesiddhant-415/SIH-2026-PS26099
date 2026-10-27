@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nmig-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nmig-material-harmonizer
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
