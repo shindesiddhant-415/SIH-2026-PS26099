@@ -1,6 +1,11 @@
 # NMIG — National Material Intelligence Grid
 ### AI-Driven Standardization and Harmonization of Material Codes Across CPSEs
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-matsync--ai.vercel.app-blue?style=for-the-badge&logo=vercel)](https://matsync-ai.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-SIH--2026--PS26099-black?style=for-the-badge&logo=github)](https://github.com/shindesiddhant-415/SIH-2026-PS26099)
+
+**🌐 Live Production URL:** [https://matsync-ai.vercel.app/](https://matsync-ai.vercel.app/)
+
 **Smart India Hackathon 2026**  
 - **Problem Statement ID:** SIH26099  
 - **Problem Statement Title:** AI-Driven Standardization and Harmonization of Material Codes Across CPSEs  
@@ -127,15 +132,17 @@ docker run -p 8000:8000 -e PORT=8000 matsync-ai
 
 ## ☁️ Cloud Deployment Options
 
-### Option 1: 1-Click Vercel Deployment (Recommended for Instant Live Demo)
-This repository includes native [`vercel.json`](file:///d:/sih-ps-2/vercel.json) and [`api/index.py`](file:///d:/sih-ps-2/api/index.py) configuration:
+### Option 1: 1-Click Vercel Deployment (Active Production)
+✅ **Live URL:** [https://matsync-ai.vercel.app/](https://matsync-ai.vercel.app/)
+
+This repository includes native [`vercel.json`](vercel.json) and [`api/index.py`](api/index.py) configuration:
 1. Push your repository to GitHub.
-2. Go to [vercel.com/new](https://vercel.com/new) and import your repo: `SIH-2026-PSS26263-`.
+2. Go to [vercel.com/new](https://vercel.com/new) and import your repo: `SIH-2026-PS26099`.
 3. Vercel automatically detects the Python runtime and `requirements.txt`.
 4. Click **Deploy**. Your live sovereign platform URL is generated in under 30 seconds!
 
 ### Option 2: Render.com (Blueprint & Web Service)
-This repository includes a [`render.yaml`](file:///d:/sih-ps-2/render.yaml) blueprint:
+This repository includes a [`render.yaml`](render.yaml) blueprint:
 1. Connect this GitHub repository to [Render](https://render.com).
 2. Create a **New Web Service** (or use Blueprints).
 3. Runtime: **Python 3**
@@ -144,7 +151,7 @@ This repository includes a [`render.yaml`](file:///d:/sih-ps-2/render.yaml) blue
 6. Click **Deploy Web Service**.
 
 ### Option 3: Railway / Koyeb / Fly.io / Heroku
-The included [`Procfile`](file:///d:/sih-ps-2/Procfile) and [`Dockerfile`](file:///d:/sih-ps-2/Dockerfile) are standard compliant:
+The included [`Procfile`](Procfile) and [`Dockerfile`](Dockerfile) are standard compliant:
 ```bash
 # Railway CLI
 railway up
@@ -177,4 +184,4 @@ curl -f http://<your-deployment-domain>/api/health
 - **Team ID:** 137862
 - **Problem Statement ID:** SIH26099 (AI-Driven Standardization and Harmonization of Material Codes Across CPSEs)
 - **Theme:** Smart Automation (Software)
-- **Official GitHub:** [github.com/shindesiddhant-415/SIH-2026-PSS26263-](https://github.com/shindesiddhant-415/SIH-2026-PSS26263-)
+- **Official GitHub:** [github.com/shindesiddhant-415/SIH-2026-PS26099](https://github.com/shindesiddhant-415/SIH-2026-PS26099)
